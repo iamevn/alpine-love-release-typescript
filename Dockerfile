@@ -3,7 +3,7 @@ LABEL maintainer="Mart Zuckernerd <zucc@facebook.com>"
 
 ENV LUA_VERSION 5.1.5
 ENV LUAROCKS_VERSION 3.0.4
-ENV BUTLER_VERSION 15.2.1
+ENV BUTLER_VERSION 15.8.0
 ENV LOVE_VERSION 11.2
 ENV LOVE_RELEASE_VERSION 2.0.9-1
 
@@ -56,13 +56,7 @@ RUN \
   luarocks install love-release $LOVE_RELEASE_VERSION && \
   luarocks install loverocks && \
   # Install busted
-  luarocks install busted && \
-  # TODO: Try removing these later!!!
-  luarocks install bump && \
-  luarocks install bump-3dpd && \
-  luarocks install middleclass && \
-  luarocks install moses && \
-  luarocks install serpent
+  luarocks install busted
 
 RUN \
   # Install itch.io butler
