@@ -1,5 +1,5 @@
 FROM alpine:edge
-LABEL maintainer="Pavel Pletenev <cpp.create@gmail.com>"
+LABEL maintainer="Mart Zuckernerd <zucc@facebook.com>"
 
 ENV LUA_VERSION 5.1.5
 ENV LUAROCKS_VERSION 3.0.4
@@ -8,11 +8,20 @@ ENV LOVE_VERSION 11.2
 ENV LOVE_RELEASE_VERSION 2.0.9-1
 
 RUN apk add --update --no-cache \
-  readline-dev libc-dev \
-  make gcc \
-  wget git \
-  zip unzip \
-  ncurses ncurses-dev
+curl \
+  gcc \
+  git \
+  libzip \
+  libzip-dev \
+  libc-dev \
+  make \
+  ncurses \
+  ncurses-dev \
+  openssl \
+  readline-dev \
+  unzip \
+  wget \
+  zip 
 
 RUN \
   wget https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz -O - | tar -xzf - &&\
@@ -32,9 +41,7 @@ RUN \
   cd / && \
   rm -rf luarocks-$LUAROCKS_VERSION
 
-RUN apk add --update --no-cache \
-  libzip libzip-dev \
-  openssl curl
+RUN apk add luajit
 
 # reference https://github.com/sgerrand/alpine-pkg-glibc
 # for a sane glibc version for love and butler
@@ -44,19 +51,24 @@ RUN \
   wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk && \
   apk add glibc-2.28-r0.apk && rm -rf glibc-2.28-r0.apk
 
-
 RUN \
   luarocks install lua-libzip && \
   luarocks install love-release $LOVE_RELEASE_VERSION && \
   luarocks install loverocks && \
   # Install busted
-  luarocks install busted
+  luarocks install busted && \
+  # TODO: Try removing these later!!!
+  luarocks install bump && \
+  luarocks install bump-3dpd && \
+  luarocks install middleclass && \
+  luarocks install moses && \
+  luarocks install serpent
 
 RUN \
   # Install itch.io butler
   mkdir butler-wd && cd butler-wd && \
   curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/${BUTLER_VERSION}/archive/default && \
-  unzip butler.zip && rm butler.zip && \ 
+  unzip butler.zip && rm butler.zip && \
   cp -v * /bin/ && \
   chmod 755 /bin/butler && \
   cd / && rm -rf butler-wd && \
