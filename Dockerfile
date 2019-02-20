@@ -2,6 +2,7 @@ FROM alpine:edge
 LABEL maintainer="Mart Zuckernerd <zucc@facebook.com>"
 
 ENV LUA_VERSION 5.1.5
+ENV LUAJIT_VERSION 2.0.5
 ENV LUAROCKS_VERSION 3.0.4
 ENV BUTLER_VERSION 15.8.0
 ENV LOVE_VERSION 11.2
@@ -24,7 +25,7 @@ curl \
   zip 
 
 RUN \
-  wget https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz -O - | tar -xzf - &&\
+  wget https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz -O - | tar -xzf - && \
   cd lua-$LUA_VERSION && \
   make -j"$(nproc)" linux && \
   make install && \
@@ -41,7 +42,15 @@ RUN \
   cd / && \
   rm -rf luarocks-$LUAROCKS_VERSION
 
-# RUN apk add luajit
+# Install 
+RUN \
+  wget http://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz -O - | tar -xzf - && \
+  cd LuaJIT-$LUAJIT_VERSION && \
+  make && \
+  make install && \
+  cd / && \
+  rm -rf LuaJIT-$LUAJIT_VERSION
+
 
 # reference https://github.com/sgerrand/alpine-pkg-glibc
 # for a sane glibc version for love and butler
