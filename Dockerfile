@@ -41,7 +41,7 @@ RUN \
   cd / && \
   rm -rf luarocks-$LUAROCKS_VERSION
 
-RUN apk add luajit
+# RUN apk add luajit
 
 # reference https://github.com/sgerrand/alpine-pkg-glibc
 # for a sane glibc version for love and butler
