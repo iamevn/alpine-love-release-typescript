@@ -65,7 +65,9 @@ RUN \
   luarocks install love-release $LOVE_RELEASE_VERSION && \
   luarocks install loverocks && \
   # Install busted
-  luarocks install busted
+  luarocks install busted && \
+  # Install luacheck
+  luarocks install luacheck
 
 RUN \
   # Install itch.io butler
