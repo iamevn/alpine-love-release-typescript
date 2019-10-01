@@ -6,11 +6,11 @@ It is based, but improves work from [oniietzschan/arch-love-release](https://git
 
 It contains: 
 
-* Lua 5.1.15
+* Lua 5.1.5
 * LuaJIT 2.0.5
-* luarocks 3.0.4
-* butler 15.8.0
+* luarocks 3.2.1
+* butler 15.17.0
 * LÖVE 11.2
-* love-release 2.0.9-1
+* love-release 2.0.13-2
 
 Read more on using love-release on Gitlab ci [here](https://github.com/oniietzschan/blog/issues/1).
