@@ -5,8 +5,8 @@ ENV LUA_VERSION 5.1.5
 ENV LUAJIT_VERSION 2.0.5
 ENV LUAROCKS_VERSION 3.2.1
 ENV BUTLER_VERSION 15.17.0
-ENV LOVE_VERSION 11.2
-ENV LOVE_RELEASE_VERSION 2.0.13-2
+ENV LOVE_VERSION 11.3
+ENV LOVE_RELEASE_VERSION 2.0.16-1
 
 RUN apk add --update --no-cache \
 curl \
@@ -85,8 +85,8 @@ RUN apk add fakeroot dpkg
 
 RUN \
     cd / && \
-    wget https://bitbucket.org/rude/love/downloads/love-${LOVE_VERSION}-x86_64.tar.gz && \
-    tar xzvf love-${LOVE_VERSION}-x86_64.tar.gz && \
+    wget https://github.com/love2d/love/releases/download/${LOVE_VERSION}/love-${LOVE_VERSION}-linux-x86_64.tar.gz && \
+    tar xzvf love-${LOVE_VERSION}-linux-x86_64.tar.gz && \
     mv dest love && \
     printf '#!/bin/sh\n/love/love "$@"\n' > /bin/love && \
     chmod +x /bin/love && \
