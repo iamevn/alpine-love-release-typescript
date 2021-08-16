@@ -12,5 +12,6 @@ It contains:
 * butler 15.17.0
 * LÖVE 11.2
 * love-release 2.0.13-2
+* yarn
 
 Read more on using love-release on Gitlab ci [here](https://github.com/oniietzschan/blog/issues/1).
