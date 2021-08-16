@@ -22,7 +22,10 @@ curl \
   readline-dev \
   unzip \
   wget \
-  zip 
+  zip \
+  nodejs \
+  bash \
+  gnupg
 
 RUN \
   wget https://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz -O - | tar -xzf - && \
@@ -92,3 +95,8 @@ RUN \
     chmod +x /bin/love && \
     love --version && \
     rm -rf love-${LOVE_VERSION}-x86_64.tar.gz
+
+# Install yarn for typescript
+RUN \
+    touch $HOME/.profile && \
+    curl -o- -L https://yarnpkg.com/install.sh | bash
